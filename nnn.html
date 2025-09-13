@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Student Finance Manager</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f0f2f5;
+  }
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  table {
+    width: 70%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+  }
+  th {
+    background: black;
+    color: white;
+  }
+  tr:nth-child(even) {
+    background: #f9f9f9;
+  }
+  /* Category colors */
+  .Food-Drink {
+    color: #28a745; /* green */
+    font-weight: bold;
+  }
+  .Entertainment {
+    color: #ffc107; /* yellow */
+    font-weight: bold; 
+  }
+  .Transport {
+    color: #007bff; /* blue */
+    font-weight: bold;
+  }
+  .Other {
+    color: #6c757d; /* gray */
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Student Finance Manager</h1>
+
+<table id="expenseTable">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Amount ($)</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Coffee</td>
+      <td>20</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Groceries</td>
+      <td>50</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Rent</td>
+      <td>100</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Movie</td>
+      <td>15</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Transportation</td>
+      <td>30</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Dinner</td>
+      <td>120</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+  // Category keywords
+  const categories = {
+    "Food-Drink": ["coffee", "dinner", "groceries"],
+    "Entertainment": ["movie"],
+    "Housing": ["rent"],
+    "Transport": ["transportation", "bus", "taxi"]
+  };
+
+  function categorize(description) {
+    description = description.toLowerCase();
+    for (const category in categories) {
+      if (categories[category].some(keyword => description.includes(keyword))) {
+        return category;
+      }
+    }
+    return "Other";
+  }
+
+  // Apply categorization and color
+  const table = document.getElementById('expenseTable');
+  const rows = table.querySelectorAll('tbody tr');
+
+  rows.forEach(row => {
+    const descCell = row.cells[0];
+    const catCell = row.cells[2];
+    const category = categorize(descCell.textContent);
+    catCell.textContent = category.replace("-", " & ");
+    catCell.className = category;
+  });
+</script>
+</body>
+</html>
